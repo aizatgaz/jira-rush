@@ -21,6 +21,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @NoHtml
 @Size(max = 1024)
 public @interface Title {
+
     String message() default "";
 
     Class<?>[] groups() default {};

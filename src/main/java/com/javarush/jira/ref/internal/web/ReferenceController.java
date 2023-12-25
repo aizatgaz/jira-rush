@@ -24,7 +24,6 @@ import static com.javarush.jira.common.util.validation.ValidationUtil.checkNew;
 @RequestMapping(value = ReferenceController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Slf4j
-
 public class ReferenceController {
     static final String REST_URL = "/api/admin/refs";
     private ReferenceMapper mapper;

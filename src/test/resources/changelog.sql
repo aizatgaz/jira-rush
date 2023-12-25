@@ -218,6 +218,7 @@ values ('task', 'Task', 2),
        ('mobile', 'Mobile', 0),
        ('phone', 'Phone', 0),
        ('website', 'Website', 0),
+       ('vk', 'VK', 0),
        ('linkedin', 'LinkedIn', 0),
        ('github', 'GitHub', 0),
 -- PRIORITY
@@ -281,15 +282,18 @@ values ('todo', 'ToDo', 3, 'in_progress,canceled'),
 --changeset gkislin:users_add_on_delete_cascade
 
 alter table ACTIVITY
-    drop constraint FK_ACTIVITY_USERS,
+    drop constraint FK_ACTIVITY_USERS;
+alter table ACTIVITY
     add constraint FK_ACTIVITY_USERS foreign key (AUTHOR_ID) references USERS (ID) on delete cascade;
 
 alter table USER_BELONG
-    drop constraint FK_USER_BELONG,
+    drop constraint FK_USER_BELONG;
+alter table USER_BELONG
     add constraint FK_USER_BELONG foreign key (USER_ID) references USERS (ID) on delete cascade;
 
 alter table ATTACHMENT
-    drop constraint FK_ATTACHMENT,
+    drop constraint FK_ATTACHMENT;
+alter table ATTACHMENT
     add constraint FK_ATTACHMENT foreign key (USER_ID) references USERS (ID) on delete cascade;
 
 --changeset valeriyemelyanov:change_user_type_reference
@@ -327,4 +331,3 @@ values ('todo', 'ToDo', 3, 'in_progress,canceled|'),
 --changeset ishlyakhtenkov:change_UK_USER_BELONG
 
 drop index UK_USER_BELONG;
-create unique index UK_USER_BELONG on USER_BELONG (OBJECT_ID, OBJECT_TYPE, USER_ID, USER_TYPE_CODE) where ENDPOINT is null;

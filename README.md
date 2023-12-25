@@ -1,6 +1,6 @@
 ## [REST API](http://localhost:8080/doc)
 
-## Концепция:
+## Концепция: 
 
 - Spring Modulith
     - [Spring Modulith: достигли ли мы зрелости модульности](https://habr.com/ru/post/701984/)
@@ -8,7 +8,7 @@
     - [Spring Modulith - Reference documentation](https://docs.spring.io/spring-modulith/docs/current-SNAPSHOT/reference/html/)
 
 ```
-  url: jdbc:postgresql://localhost:5432/jira
+  url: jdbc:postgresql://localhost:5434/jira
   username: jira
   password: JiraRush
 ```
@@ -27,4 +27,17 @@
 - https://habr.com/ru/articles/259055/
 
 Список выполненных задач:
-...
+1. Удалить социальные сети: vk, yandex.
+
+2. Вынести чувствительную информацию в отдельный проперти файл (application-authorization.yaml):
+   • логин
+   • пароль БД
+   • идентификаторы для OAuth регистрации/авторизации
+   • настройки почты
+
+3. Переделать тесты так, чтоб во время тестов использовалась in memory БД (H2), а не PostgreSQL. Для этого нужно определить 
+2 бина, и выборка какой из них использовать должно определяться активным профилем Spring. H2 не поддерживает все фичи, 
+которые есть у PostgreSQL, поэтому тебе прийдется немного упростить скрипты с тестовыми данными.
+Контейнер - docker run -d -p 9092:9092 --name my-h2-database -v /path/to/data:/data oscarfonts/h2:latest
+
+4. 
