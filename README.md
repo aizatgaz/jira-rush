@@ -40,4 +40,5 @@
 которые есть у PostgreSQL, поэтому тебе прийдется немного упростить скрипты с тестовыми данными.
 Контейнер - docker run -d -p 9092:9092 --name my-h2-database -v /path/to/data:/data oscarfonts/h2:latest
 
-4. 
+4. Написать тесты для всех публичных методов контроллера ProfileRestController. Хоть методов только 2, но тестовых методов 
+должно быть больше, т.к. нужно проверить success and unsuccess path.

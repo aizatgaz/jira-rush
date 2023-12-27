@@ -13,14 +13,18 @@ public class ProfileTestData {
     public static MatcherFactory.Matcher<Profile> PROFILE_MATCHER =
             MatcherFactory.usingIgnoringFieldsComparator(Profile.class, "user");
 
-    public static ProfileTo USER_PROFILE_TO = new ProfileTo(null,
+    public static MatcherFactory.Matcher<ProfileTo> PROFILE_TO_MATCHER =
+            MatcherFactory.usingIgnoringFieldsComparator(ProfileTo.class, "user");
+
+    public static final long USER_ID = 1L;
+    public static final long GUEST_ID = 3L;
+
+    public static ProfileTo USER_PROFILE_TO = new ProfileTo(USER_ID,
             Set.of("assigned", "overdue", "deadline"),
             Set.of(new ContactTo("skype", "userSkype"),
                     new ContactTo("mobile", "+01234567890"),
                     new ContactTo("website", "user.com")));
-    public static ProfileTo GUEST_PROFILE_EMPTY_TO = new ProfileTo(null,
-            Set.of(),
-            Set.of());
+    public static ProfileTo GUEST_PROFILE_EMPTY_TO = new ProfileTo(GUEST_ID, Set.of(), Set.of());
 
     public static ProfileTo getNewTo() {
         return new ProfileTo(null,

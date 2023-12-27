@@ -2,10 +2,6 @@ spring.cache.type: none
 spring:
   init:
     mode: always
-#  datasource:
-#    url: jdbc:postgresql://localhost:5433/jira-test
-#    username: jira
-#    password: JiraRush
   datasource:
     url: jdbc:h2:mem:test
     driver-class-name: org.h2.Driver
