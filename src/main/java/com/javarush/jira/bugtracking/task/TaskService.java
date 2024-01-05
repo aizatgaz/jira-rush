@@ -14,6 +14,7 @@ import com.javarush.jira.common.error.NotFoundException;
 import com.javarush.jira.common.util.Util;
 import com.javarush.jira.login.AuthUser;
 import com.javarush.jira.ref.RefType;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static com.javarush.jira.bugtracking.ObjectType.TASK;
 import static com.javarush.jira.bugtracking.task.TaskUtil.fillExtraFields;
@@ -139,5 +141,38 @@ public class TaskService {
         if (!userType.equals(possibleUserType)) {
             throw new DataConflictException(String.format(assign ? CANNOT_ASSIGN : CANNOT_UN_ASSIGN, userType, task.getStatusCode()));
         }
+    }
+
+    @Transactional
+    public void addTagToTask(long id, Set<String> tag) {
+        Task task = handler.getRepository().findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Task not found with id: " + id));
+        task.getTags().addAll(tag);
+        handler.getRepository().save(task);
+    }
+
+    public Set<String> getTags(long id) {
+        Task task = handler.getRepository().findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Task not found with id: " + id));
+        return task.getTags();
+    }
+
+    @Transactional
+    public void deleteTagFromTask(long id, String tag) {
+        Task task = handler.getRepository().findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Task not found with id: " + id));
+        if (task.getTags().contains(tag)) {
+            task.getTags().remove(tag);
+            handler.update(task, id);
+        } else {
+            throw new NotFoundException("Task " + id + " doesn't contain " + tag);
+        }
+    }
+
+    @Transactional
+    public void deleteAllTags(long id) {
+        Task task = handler.getRepository().findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Task not found with id: " + id));
+        task.setTags(Set.of());
     }
 }

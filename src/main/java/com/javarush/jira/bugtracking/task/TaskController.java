@@ -13,16 +13,19 @@ import com.javarush.jira.login.AuthUser;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static com.javarush.jira.common.BaseHandler.createdResponse;
 
@@ -30,6 +33,7 @@ import static com.javarush.jira.common.BaseHandler.createdResponse;
 @RestController
 @RequestMapping(value = TaskController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
+@Validated
 public class TaskController {
 
     public static final String REST_URL = "/api/tasks";
@@ -155,5 +159,25 @@ public class TaskController {
         public TaskTreeNode(TaskTo taskTo) {
             this(taskTo, new LinkedList<>());
         }
+    }
+
+    @GetMapping("/{id}/tags")
+    public Set<String> getTags(@PathVariable long id) {
+        return taskService.getTags(id);
+    }
+
+    @PostMapping(value = "/{id}/tags", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void addTags(@PathVariable long id, @RequestBody Set<@Size(min = 2, max = 32) String> tag) {
+        taskService.addTagToTask(id, tag);
+    }
+
+    @DeleteMapping("/{id}/tags/{tag}")
+    public void deleteTagByName(@PathVariable long id, @PathVariable String tag) {
+        taskService.deleteTagFromTask(id, tag);
+    }
+
+    @DeleteMapping("/{id}/tags")
+    public void deleteAllTags(@PathVariable long id) {
+        taskService.deleteAllTags(id);
     }
 }
