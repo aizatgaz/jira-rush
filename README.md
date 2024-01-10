@@ -8,7 +8,7 @@
     - [Spring Modulith - Reference documentation](https://docs.spring.io/spring-modulith/docs/current-SNAPSHOT/reference/html/)
 
 ```
-  url: jdbc:postgresql://localhost:5434/jira
+  url: jdbc:postgresql://localhost:5432/jira
   username: jira
   password: JiraRush
 ```
@@ -38,12 +38,14 @@
 3. Переделать тесты так, чтоб во время тестов использовалась in memory БД (H2), а не PostgreSQL. Для этого нужно определить 
 2 бина, и выборка какой из них использовать должно определяться активным профилем Spring. H2 не поддерживает все фичи, 
 которые есть у PostgreSQL, поэтому тебе прийдется немного упростить скрипты с тестовыми данными.
-Контейнер - docker run -d -p 9092:9092 --name my-h2-database -v /path/to/data:/data oscarfonts/h2:latest
+Контейнер: docker run -d -p 9092:9092 --name my-h2-database -v /path/to/data:/data oscarfonts/h2:latest
 
 4. Написать тесты для всех публичных методов контроллера ProfileRestController. Хоть методов только 2, но тестовых методов 
 должно быть больше, т.к. нужно проверить success and unsuccess path.
-5
+
 5. Сделать рефакторинг метода com.javarush.jira.bugtracking.attachment.FileUtil#upload чтоб он использовал современный 
 подход для работы с файловой системмой.
 
 6. Добавить новый функционал: добавления тегов к задаче (REST API + реализация на сервисе).
+
+7. Пытался настроить docker-compose.yaml, но что-то не получается пофиксить ошибку org.thymeleaf.TemplateEngine.process
