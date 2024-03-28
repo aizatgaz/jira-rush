@@ -26,7 +26,7 @@
 [common](src%2Fmain%2Fjava%2Fcom%2Fjavarush%2Fjira%2Fcommon)
 - https://habr.com/ru/articles/259055/
 
-Список выполненных задач:
+## Список выполненных задач:
 1. Удалить социальные сети: vk, yandex.
 
 2. Вынести чувствительную информацию в отдельный проперти файл (application-authorization.yaml):
