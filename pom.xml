@@ -160,7 +160,21 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.9.22</version> <!-- Выберите актуальную версию -->
+            <version>1.9.22</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ucp -->
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ucp</artifactId>
+            <version>23.2.0.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.10.0</version>
         </dependency>
 
     </dependencies>
